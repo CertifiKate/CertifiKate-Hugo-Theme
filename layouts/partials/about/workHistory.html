@@ -1,0 +1,46 @@
+<div id="workHistory">
+    <h2>Work History</h2>
+    {{ range sort .Site.Data.about.employers "StartDate"  "desc"}}
+    <div class="workItem">
+        <div class="jobHeader">
+            <span class="employer">{{ .Name }}</span>
+            <span class="dates">{{ partial "util/datePeriod.html" (dict "StartDate" .StartDate "EndDate" .EndDate) }}</span>
+        </div>
+        
+        <span class="jobDesc">
+            {{ .Blurb }}
+        </span>
+
+        {{ range sort .Roles "StartDate" "desc" }}
+        <ul>
+            <div class="role">
+                <div class="roleInfo">
+                    <div class="roleTitle">
+                        {{ .Title }}
+                    </div>
+                    {{- if .StartDate }}
+                    <div class="dates">
+                        {{ partial "util/datePeriod.html" (dict "StartDate" .StartDate "EndDate" .EndDate) }}                    
+                    </div>
+                    {{- end}}
+    
+                </div>
+                <div class="roleDescription">
+                    {{ range .Description }}
+                        <p>{{ . }}</p>
+                    {{ end }}
+                    <div class="skills">
+                        <b>Skills: </b>
+                        <ul class="separator-list">
+                        {{ range .Skills }}
+                            <li>{{ . }}</li>
+                        {{ end }}
+                        </ul>
+                    </div>    
+                </div>
+            </div>
+        </ul>
+        {{ end}}
+    </div>
+    {{ end }}
+</div>

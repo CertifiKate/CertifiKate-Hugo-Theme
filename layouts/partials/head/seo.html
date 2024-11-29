@@ -1,0 +1,39 @@
+<!-- Based on https://github.com/filipecarneiro/hugo-bootstrap-theme/blob/main/layouts/partials/head/seo.html -->
+
+<title>{{ .Title }}</title>
+
+{{ with .Description -}}
+  <meta name="description" content="{{ . }}">
+{{ else -}}
+  {{ with .Summary | plainify -}}
+    <meta name="description" content="{{ . }}">
+  {{ else -}}
+    <meta name="description" content="{{ .Site.Params.description }}">
+  {{ end -}}
+{{ end -}}
+
+{{ if or (.Params.noindex) (eq .Kind "404") }}
+  <meta name="robots" content="noindex">
+{{ end }}
+
+<!-- canonical tag -->
+<link rel="canonical" href="{{ .Permalink | safeURL }}">
+
+
+<!-- AlternativeOutputFormats -->
+{{ range .AlternativeOutputFormats -}}
+  <link rel="{{ .Rel }}" {{ printf "type=%q" .MediaType.Type | safeHTMLAttr }} href="{{ .Permalink | safeURL }}">
+{{ end -}}
+
+
+<!-- will load JSON-LD Schemas in pages -->
+<!-- https://schema.org/docs/schemas.html -->
+{{ if .IsPage }}
+  <!-- Article structured data -->
+  {{- partial "head/schema-article.html" .  -}}
+{{ end }}
+
+{{ if .IsHome }}
+  <!-- WebSite structured data -->
+  {{- partial "head/schema-website.html" .  -}}
+{{ end }}

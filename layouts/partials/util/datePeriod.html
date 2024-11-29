@@ -1,0 +1,14 @@
+{{ $startDate := .StartDate }}
+{{ $endDate := .EndDate }}
+{{ $timeFormat := "January 2006"}}
+
+
+{{ if $startDate }}
+    {{ $startDate | time.Format $timeFormat }}
+    -
+    {{ if $endDate }}
+        {{ $endDate | time.Format $timeFormat }}
+    {{ else }}
+        Current 
+    {{ end }}
+{{ end }}

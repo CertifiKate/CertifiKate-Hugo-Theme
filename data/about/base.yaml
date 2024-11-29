@@ -1,0 +1,13 @@
+name: Your Name!
+nameShort: Name
+title: Blog Writer
+
+summary:
+  - |
+    This is where my summary would go if I had one.
+  - |
+
+    
+summaryAlt:
+  - This is the main page summary. You probably want to overwrite this
+  

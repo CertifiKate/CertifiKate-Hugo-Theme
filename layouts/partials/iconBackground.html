@@ -1,0 +1,9 @@
+<div class="iconBg">
+    {{ range .Site.Data.bgIcons.icons }}
+    <div>
+        {{ range .icons }}
+        <i data-feather="{{ . }}"></i>
+        {{ end }}
+    </div>
+    {{ end }}
+</div>

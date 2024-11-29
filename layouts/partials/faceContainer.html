@@ -1,0 +1,8 @@
+{{- $height := .height }}
+{{- $width := .width }}
+
+
+<div class="faceContainer">
+    {{ $image := resources.Get "images/face.png" }}
+    <img class="center" src="{{ $image.RelPermalink }}" height="{{ $height }}" width="{{ $width }}" >
+</div>

@@ -1,0 +1,40 @@
+{{ define "main" }}
+
+<div class="container">
+    {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+    {{ $dateHuman := .Date | time.Format ":date_long" }}
+
+    <h1 class="blogTitle">{{ .Title }}</h1>
+
+    <div class="blogInfo">
+        <div class="blogDetails">
+            <a id="author" href='{{ (.Site.GetPage "section" "about").Permalink }}'>
+                {{ .Site.Data.about.base.name }}
+            </a>
+            <time id="time" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>    
+        </div>
+        <div>
+            <div id="readTime">{{ printf "%d minutes" .ReadingTime }}</div>
+
+            {{ if .Params.tags }}
+                <div id="tags">{{ partial "util/tagsComma.html" (dict "taxonomy" "tags" "page" .) }}</div>
+            {{ end }}
+        </div>
+
+    </div>
+    <div class="blogSummary">
+        {{ .Summary }}
+    </div>
+    
+    <div class="blogMain">
+        {{ partial "util/blogSeries.html" . }}
+
+        <div class="blogContent">
+            {{ .Content }}
+        </div>
+
+        {{ partial "about/brief.html" . }}
+
+    </div>
+</div>
+{{ end }}

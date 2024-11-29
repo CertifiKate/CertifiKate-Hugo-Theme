@@ -1,0 +1,12 @@
+{{- $page := .page }}
+
+{{- with $page.GetTerms "tags" }}
+  <div class="tag-list-comma">
+    Tags:
+      <ul class="separator-list">
+      {{- range . }}
+        <li><a class="tag-list" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+      {{- end }}
+      </ul>
+    </div>
+{{- end }}

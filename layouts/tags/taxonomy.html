@@ -1,0 +1,9 @@
+{{ define "main" }}
+    <div class="container">
+
+        <h1>Blog Posts by Tag - {{.Title }}</h1>
+        {{ partial "util/backTo.html" (dict "page" (.Site.GetPage "section" "blog"))  }}
+
+        {{ partial "blogList.html" . }}
+    </div>
+{{ end }}

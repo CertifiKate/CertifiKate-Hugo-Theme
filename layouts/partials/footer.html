@@ -1,0 +1,26 @@
+<div class="container container-spaced">
+    <div id="colorSchemeButton" class="button" onclick="setUserColorScheme()">
+        <i data-feather="eye"></i>
+    </div>
+
+    <div>        
+    </div>
+
+    <div class="links">
+        {{- range site.Menus.userfooter }}
+            <div class="button">
+                <a target="_blank" href="{{ .URL }}">
+                {{ .Pre }}
+                </a>
+            </div>
+        {{- end}}
+
+        <div class="button">
+            {{ with (.Site.GetPage "section" "blog").OutputFormats.Get "rss" }}
+                {{ printf `<a href=%q target="_blank">` .Permalink | safeHTML }}
+                    <i data-feather="rss"></i>
+                </a>
+            {{ end }}
+        </div>
+    </div>
+</div>

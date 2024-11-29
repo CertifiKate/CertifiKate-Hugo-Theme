@@ -1,0 +1,39 @@
+
+{{ if .Params.series }}
+{{ $seriesName := (index .Params.series 0 | urlize)}}
+{{ $seriesParams := (site.GetPage $seriesName).Params }}
+<div class="blogSeries infoContainer">
+    <div class="blogSeriesContent">
+        <p class="seriesName">
+            This article is part of the series
+            <i>{{ $seriesParams.name }}</i>
+        </p>
+        <div class="seriesSummary">
+            {{ $seriesParams.summary }}
+        </div>
+        <ul class="seriesList">
+        {{ range $num,$post := (index .Site.Taxonomies.series $seriesName).Pages.ByDate }}
+            {{ if eq $post.Permalink $.Page.Permalink }}
+                <li class="active">
+                    <b class="seriesName">
+                        Part {{ add $num 1 }}: {{ $.Page.Title }}
+                    </b>
+                    <i class="seriesDescription">
+                        {{ $post.Params.series_desc}}
+                    </i>
+                </li>
+            {{ else }}
+                <li class="active">
+                    <a class="seriesName" href="{{$post.Permalink}}">
+                        Part {{ add $num 1 }}: {{ $post.Params.title}}
+                    </a>
+                    <i class="seriesDescription">
+                        {{ $post.Params.series_desc}}
+                    </i>
+                </li>
+            {{end}}
+        {{end}}
+        </ul>
+    </div>
+</div>
+{{ end }}

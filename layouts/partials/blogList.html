@@ -1,0 +1,23 @@
+<div class="section">
+
+    {{ $pages := .RegularPages }}
+    {{ $paginator := .Paginate $pages 10 }}
+
+    {{ range $paginator.Pages }}
+    <li class="post" id="{{ .Slug }}">
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <i>
+            {{ if .Date }}
+                {{ .Date | time.Format ":date_long" }}
+            {{ end }}
+            {{ partial "util/tagsComma.html" (dict "taxonomy" "tags" "page" .) }}
+        </i>
+
+        <p>{{ .Summary }}... <a href="{{ .RelPermalink }}">Read more</a></p>
+    </li>
+
+    {{ end }}
+
+    {{ template "_internal/pagination.html" . }}
+    
+</div>

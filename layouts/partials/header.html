@@ -1,0 +1,31 @@
+<div class="container container-spaced">
+    <div class="homeLink">
+        <a id="homeLink" href="/">
+            <div class="name">
+                {{ .Site.Title}}
+            </div>
+        </a>
+    </div>
+    <div class="menuLinks">
+    {{- range site.Menus.header }}
+        <a href="{{.URL }}">
+            <div class="icon">
+                {{ .Pre }}
+            </div>
+            <div class="name">
+                {{.Name}}
+            </div>
+        </a>
+    {{- end}}
+    {{- range site.Menus.userheader }}
+        <a target="_blank" href="{{.URL }}">
+            <div class="icon">
+                {{ .Pre }}
+            </div>
+            <div class="name">
+                {{.Name}}
+            </div>
+        </a>
+    {{- end}}
+    </div>
+</div>

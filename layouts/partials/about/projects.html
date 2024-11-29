@@ -1,0 +1,31 @@
+<div id="projects">
+    <h2>Projects</h2>
+    {{ range sort .Site.Data.about.projects "Weight"  "desc"}}
+    <div class="workItem">
+        <div class="projectHeader">
+            <div class="projectTitle">
+                {{ .Name }}
+            </div>
+            <a class="projectUrl" href="{{.Link }}">{{.Link}}</a>
+        </div>
+        <div class="projectDescription">
+            {{ range .Blurb }}
+                <p>{{ . }}</p>
+            {{ end }}
+
+            {{ if .Skills }}
+            <div class="skills">
+                <b>Skills: </b>
+                <ul class="separator-list">
+                {{ range .Skills }}
+                    <li>{{ . }}</li>
+                {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+
+        </div>
+
+    </div>
+    {{ end }}
+</div>

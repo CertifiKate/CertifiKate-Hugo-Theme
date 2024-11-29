@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="container">
+    <div class="faceSplitContainer faceSplitContainerSmall">
+        {{ partial "faceContainer" (dict "height" "200px" "width" "200px") }}
+
+        <div id="about">
+            
+            <h1> {{ .Site.Data.about.base.name }}</h1>
+            {{ range .Site.Data.about.base.summary }}
+                <p>{{ . }}</p>
+            {{ end }}
+        </div>
+    </div>
+    <div class="section aboutSection">
+        {{ partial "about/workHistory.html" . }}
+    </div>
+    <div class="section aboutSection">
+        {{ partial "about/projects.html" . }}
+    </div>
+</div>
+{{ end }}

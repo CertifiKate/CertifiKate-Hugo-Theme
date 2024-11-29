@@ -1,0 +1,12 @@
+Name: Employer 1
+Blurb: Add employer description here 
+StartDate: 2020-01-01
+EndDate: 2021-01-01
+Roles:
+  - Title: Title
+    Description: 
+      - |
+        Lorem ipsum odor amet, consectetuer adipiscing elit. Iaculis pellentesque suscipit sollicitudin dolor, suscipit risus ut pharetra. Magna torquent nulla phasellus taciti commodo praesent at. Ad arcu consequat sem cubilia cubilia posuere aenean porta elementum. Urna laoreet proin scelerisque primis primis cursus et phasellus sociosqu.
+    Skills:
+      - Skill
+      - Skill

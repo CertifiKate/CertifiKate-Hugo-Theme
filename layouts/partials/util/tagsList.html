@@ -1,0 +1,12 @@
+{{- $page := .page }}
+
+{{- with $page.GetTerms "tags" }}
+  <div>
+    <div>Tags:</div>
+    <ul>
+      {{- range . }}
+        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+      {{- end }}
+    </ul>
+  </div>
+{{- end }}

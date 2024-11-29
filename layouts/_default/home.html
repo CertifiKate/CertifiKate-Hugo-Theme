@@ -1,0 +1,13 @@
+{{ define "main" }}
+<div class="container homeContainer faceSplitContainer">
+  {{ partial "faceContainer" }}
+  <div class="homeIntro">
+    <h1>Hi, I'm {{ .Site.Data.about.base.nameShort }}!</h1>
+    <h2>{{ .Site.Data.about.base.title }}</h2>
+    
+    {{ range .Site.Data.about.base.summaryAlt }}
+      <p>{{ . }}</p>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

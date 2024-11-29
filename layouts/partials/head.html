@@ -1,0 +1,25 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>{{ printf "%s | %s" .Title site.Title }}</title>
+
+<meta name="theme-color" content="#ffffff">
+
+<link rel="icon" href="/favicon.ico">
+
+<link rel="icon" href="/favicon.svg">
+<link rel="mask-icon" href="/favicon.svg" color="#000000">
+
+{{ partial "head/opengraph.html" . }}
+{{ partial "head/seo.html" . }}
+{{ template "_internal/google_analytics.html" . }}
+
+<!-- Add Feather Icons -->
+<script src="https://unpkg.com/feather-icons"></script>
+{{ with .OutputFormats.Get "rss" -}}
+  {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+{{ end }}
+
+{{ partial "head/section-css.html" . }}
+{{ partialCached "head/css.html" . }}
+{{ partialCached "head/js.html" . }}
+

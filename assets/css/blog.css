@@ -1,0 +1,190 @@
+/* Single Blog Post */
+.blogMain {
+    display: flex;
+    flex-direction: column;
+}
+
+h1.blogTitle {
+    font-size: 2.5rem;
+}
+
+.blogSeries {
+    font-size: smaller;
+    border-radius: var(--corner-radius);
+    padding: 1rem 2rem;
+
+    li {
+        margin: 0.5rem 0;
+    }
+
+    .seriesName {
+        font-size: large;
+        margin-bottom: 0.5rem;
+    }
+
+    .seriesDescription {
+        display: block;
+    }
+}
+
+.blogDetails {
+    display: flex;
+    flex-grow: initial;
+    justify-content: space-between;
+    font-size: 1.2rem;
+
+    #author,
+    #time,
+    #readTime {
+        display: inline-block;
+        color: unset;
+        font-style: normal;
+        font-weight: unset;
+    }
+ 
+    #tags {
+        text-align: center;
+    }
+}
+
+.blogSummary {
+    padding: 2rem;
+    font-style: italic;
+}
+
+/* About the Author */
+div#brief {
+    border-radius: var(--corner-radius);
+    padding: 1rem;
+    font-size: smaller;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    h1 {
+        margin-top: 0rem;
+        font-size: large;
+    }
+
+    .briefFace {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    .faceContainer {
+        padding-bottom: 1rem;
+    }
+
+    .aboutSection {
+        display: inline-block;
+    }
+
+}
+
+.blogContent {
+
+    h1,
+    h2,
+    h3 {
+        color: var(--font-color);
+        margin-top: 2rem;
+    }
+
+    p {
+        margin-top: 0rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    blockquote,
+    pre {
+        background-color: var(--infoBoxColor);
+        padding: 1rem;
+        overflow-y: scroll;
+    }
+
+    blockquote {
+        border-left: 10px solid #ccc;
+        border-radius: 0 var(--corner-radius) var(--corner-radius) 0 ;
+        margin: 1.5rem 0rem;
+    }
+
+    blockquote p {
+        margin: 0;
+    }
+
+    pre {
+        padding: 1.5rem;
+        border-radius: var(--corner-radius);
+        font-size: smaller;
+        font-family: 'DejaVu Sans Mono', monospace;
+    }
+
+    :not(pre) > code {
+        background-color: var(--infoBoxColor);
+        padding: 0.3rem;
+        font-weight: bolder;
+    }
+
+    ul {
+        list-style:  disclosure-closed;
+    }
+
+    ul,
+    ol {
+        margin: 0rem 2rem;
+        padding-bottom: 1rem;
+    }
+
+    hr {
+        color: var(--font-color);
+    }
+}
+
+@media only screen and (min-width: 640px) {
+}
+
+@media only screen and (min-width: 640px) {
+    div#brief {
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+    
+        .faceContainer {
+            padding-bottom: unset;
+        }
+        .briefFace {
+            margin-left: unset;
+            margin-right: unset;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) {
+
+}
+
+@media only screen and (min-width: 1024px) {
+    .blogContent {
+        pre {
+            margin: 1rem 5rem;
+        }
+
+        blockquote {
+            margin: 1.5rem 5rem;
+        }
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+
+}

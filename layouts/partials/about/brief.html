@@ -1,0 +1,13 @@
+<div id="brief" class="infoContainer">
+    <div class="briefFace">
+        <a href='{{ (.Site.GetPage "section" "about").Permalink }}'>
+            {{ partial "faceContainer" (dict "height" "100px" "width" "100px") }}
+        </a>    
+    </div>
+    <div class="aboutSection">
+        <h1 class="aboutAuthor">About the Author</h1>
+
+        {{ .Site.Data.about.blog.blurb }}
+
+    </div>
+</div>

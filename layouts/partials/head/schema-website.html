@@ -1,0 +1,31 @@
+<!-- Based on https://github.com/filipecarneiro/hugo-bootstrap-theme/ -->
+
+
+<!-- WebSite Schema.org Type -->
+<!-- https://schema.org/WebSite -->
+<!-- Output all taxonomies as schema.org keywords -->
+
+<!-- Revision based on Google guide https://developers.google.com/search/docs/appearance/site-names#how-to-add-structured-data -->
+{{ with . }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ .Site.Title }},
+  {{ with .Site.Params.Description -}}
+  "description": {{ . }},
+  {{ end -}}
+  {{ with .Site.Params.author -}}
+  "copyrightHolder": {
+    "@type": "Organization",
+    "name": "{{ .name }}"
+  },
+  {{- end }}
+  {{ with .Permalink -}}
+  "url": {{ . }},
+  {{ end -}}
+  "alternateName": {{ .Site.Params.altTitles }}
+
+}
+</script>
+{{ end}}

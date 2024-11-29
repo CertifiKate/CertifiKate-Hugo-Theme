@@ -1,0 +1,30 @@
+menus:
+  header:
+    - name: Blog
+      pageRef: /blog
+      weight: 10
+      pre: <i data-feather="book-open"></i>
+    - name: About
+      pageRef: /about
+      weight: 20
+      pre: <i data-feather="user"></i>
+
+taxonomies:
+  series: series
+  tag: tags
+
+pagination:
+
+# Remove auto rss generation
+outputs:
+  home:
+  - html
+  section:
+  - html
+  taxonomy:
+  - html
+  term:
+  - html
+
+disableKinds:
+  - taxonomy
