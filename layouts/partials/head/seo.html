@@ -1,5 +1,7 @@
 <!-- Based on https://github.com/filipecarneiro/hugo-bootstrap-theme/blob/main/layouts/partials/head/seo.html -->
 
+{{ template "_internal/schema.html" . }}
+
 <title>{{ .Title }}</title>
 
 {{ with .Description -}}
