@@ -4,15 +4,10 @@
 
 <title>{{ .Title }}</title>
 
-{{ with .Description -}}
+{{- with or .Params.seoDescription .Description .Summary site.Params.description | plainify | htmlUnescape | chomp }}
   <meta name="description" content="{{ . }}">
-{{ else -}}
-  {{ with .Summary | plainify -}}
-    <meta name="description" content="{{ . }}">
-  {{ else -}}
-    <meta name="description" content="{{ .Site.Params.description }}">
-  {{ end -}}
-{{ end -}}
+{{- end }}
+
 
 {{ if or (.Params.noindex) (eq .Kind "404") }}
   <meta name="robots" content="noindex">

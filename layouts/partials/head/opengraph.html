@@ -8,7 +8,7 @@
   <meta property="og:title" content="{{ . }}">
 {{- end }}
 
-{{- with or .Description .Summary site.Params.description | plainify | htmlUnescape | chomp }}
+{{- with or .Params.seoDescription .Description .Summary site.Params.description | plainify | htmlUnescape | chomp }}
   <meta property="og:description" content="{{ . }}">
 {{- end }}
 
@@ -98,4 +98,6 @@
 <!-- Twitter metadata (used by other websites as well) -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{{ .Title }}" />
-<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}"/>
+{{- with or .Params.seoDescription .Description .Summary site.Params.description | plainify | htmlUnescape | chomp }}
+<meta name="twitter:description" content="{{ . }}"/>
+{{ end }}
