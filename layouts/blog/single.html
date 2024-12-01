@@ -1,8 +1,11 @@
 {{ define "main" }}
 
-<div class="container">
+<div class="container blogContainer">
     {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
     {{ $dateHuman := .Date | time.Format ":date_long" }}
+
+    {{ $dateModifiedMachine := .Lastmod | time.Format "2006-01-02T15:04:05-07:00" }}
+    {{ $dateModifiedHuman := .Lastmod | time.Format ":date_long" }}
 
     <h1 class="blogTitle">{{ .Title }}</h1>
 
@@ -11,11 +14,21 @@
             <a id="author" href='{{ (.Site.GetPage "section" "about").Permalink }}'>
                 {{ .Site.Data.about.base.name }}
             </a>
-            <time id="time" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>    
+            <div class="blogDates">
+                <span>
+                    <time id="time" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>    
+                </span>
+                {{ if and $dateModifiedHuman  (ne $dateModifiedHuman $dateHuman) }}
+                <span class="edited">
+                    <span >Updated: </span>
+                    <time id="timeModified" datetime="{{ $dateModifiedMachine }}">{{ $dateModifiedHuman }}</time>                    
+                </span>
+                {{ end }}
+    
+            </div>
         </div>
         <div>
-            <div id="readTime">{{ printf "%d minutes" .ReadingTime }}</div>
-
+            <div id="readTime">{{ printf "~%d minutes" .ReadingTime }}</div>
             {{ if .Params.tags }}
                 <div id="tags">{{ partial "util/tagsComma.html" (dict "taxonomy" "tags" "page" .) }}</div>
             {{ end }}

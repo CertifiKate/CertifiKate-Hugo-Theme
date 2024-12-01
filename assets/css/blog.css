@@ -8,6 +8,10 @@ h1.blogTitle {
     font-size: 2.5rem;
 }
 
+.blogContainer {
+    background-color: var(--bg-color-transparent);
+}
+
 .blogSeries {
     font-size: smaller;
     border-radius: var(--corner-radius);
@@ -44,6 +48,15 @@ h1.blogTitle {
  
     #tags {
         text-align: center;
+    }
+
+    .blogDates > span {
+        display: block;
+        text-align: right;
+
+    }
+    .blogDates span.edited{
+            font-style: italic;
     }
 }
 
@@ -122,7 +135,13 @@ div#brief {
         margin: 0;
     }
 
+    blockquote > blockquote {
+        background-color: unset;
+    }
+
+
     pre {
+        max-height: 60vh;
         padding: 1.5rem;
         border-radius: var(--corner-radius);
         font-size: smaller;

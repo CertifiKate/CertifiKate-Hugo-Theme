@@ -23,6 +23,7 @@
 :root[color-mode="light"] {
   --font-color: #3D405B;
   --bg-color: #F9F7F3;
+  --bg-color-transparent: #F9F7F355;
 
   --accent1: #EDDEA4;
   --accent2: #F7A072;
@@ -41,7 +42,8 @@
 :root[color-mode="dark"] {
   --font-color: #F4F1DE; 
   
-  --bg-color:  #3D405B;;
+  --bg-color: #3D405B;
+  --bg-color-transparent: #3D405B55;
 
   --accent1: #EDDEA4;
   --accent2: #F7A072;
