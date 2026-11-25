@@ -3,24 +3,187 @@
   margin-top: 5rem;
 }
 
-.workItem:not(:first-of-type){
-  margin-top: 2rem;
+.timeline {
+  --trunk-x: 0.45rem;
+  --curve-r: 0.75rem;
+  --branch-x: calc(var(--trunk-x) + 2 * var(--curve-r));
+  --line-width: 3px;
+  --content-gap: 1.25rem;
+  --end-gap: 1.25rem;
+  position: relative;
+  padding-bottom: var(--end-gap);
+}
+
+.trunkLine {
+  position: absolute;
+  left: calc(var(--trunk-x) - var(--line-width) / 2);
+  top: 0;
+  bottom: 0;
+  width: var(--line-width);
+  background-color: var(--cardBorder-strong);
+}
+
+.workEmployer {
+  --branch-color: var(--branch-0);
+  --branch-text-color: var(--branch-0-text);
+  --dot-y: 1.25rem;
+  --employer-gap: 3rem;
+  position: relative;
+  padding-left: calc(var(--branch-x) + var(--content-gap));
+  padding-bottom: var(--employer-gap);
+}
+
+.workEmployer.branch-0 { --branch-color: var(--branch-0); --branch-text-color: var(--branch-0-text); }
+.workEmployer.branch-1 { --branch-color: var(--branch-1); --branch-text-color: var(--branch-1-text); }
+.workEmployer.branch-2 { --branch-color: var(--branch-2); --branch-text-color: var(--branch-2-text); }
+.workEmployer.branch-3 { --branch-color: var(--branch-3); --branch-text-color: var(--branch-3-text); }
+.workEmployer.branch-4 { --branch-color: var(--branch-4); --branch-text-color: var(--branch-4-text); }
+.workEmployer.branch-5 { --branch-color: var(--branch-5); --branch-text-color: var(--branch-5-text); }
+
+.trunkDot,
+.trunkDotEnd {
+  position: absolute;
+  left: var(--trunk-x);
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: 100%;
+  border: 3px solid var(--bg-color);
+  z-index: 1;
+}
+
+.trunkDot {
+  top: var(--dot-y);
+  background-color: var(--branch-color);
+  box-shadow: 0 0 0 1.5px var(--branch-color);
+}
+
+.trunkDotEnd {
+  bottom: calc(-1 * var(--dot-y) - var(--end-gap));
+  background-color: var(--end-dot-color);
+  box-shadow: 0 0 0 1.5px var(--end-dot-color);
+}
+
+.branchFork,
+.branchMerge {
+  position: absolute;
+  width: calc(2 * var(--curve-r));
+  height: calc(2 * var(--curve-r));
+  box-sizing: border-box;
+  border: 0 solid var(--branch-color);
+  left: calc(var(--branch-x) - 2 * var(--curve-r) + var(--line-width) / 2);
+}
+
+.branchFork {
+  top: calc(var(--dot-y) - var(--line-width) / 2);
+  border-width: var(--line-width) var(--line-width) 0 0;
+  border-top-right-radius: var(--curve-r);
+}
+
+.branchMerge {
+  bottom: calc(-1 * var(--dot-y) - var(--line-width) / 2);
+  border-width: 0 var(--line-width) var(--line-width) 0;
+  border-bottom-right-radius: var(--curve-r);
+}
+
+.branchLine {
+  position: absolute;
+  left: calc(var(--branch-x) - var(--line-width) / 2);
+  top: calc(var(--dot-y) + 2 * var(--curve-r) - var(--line-width) / 2);
+  bottom: calc(2 * var(--curve-r) - var(--dot-y) - var(--line-width) / 2);
+  width: var(--line-width);
+  background-color: var(--branch-color);
+}
+
+
+.commitLog {
+  position: relative;
+  margin-top: 1rem;
+}
+
+.commit {
+  position: relative;
+  display: flex;
+}
+
+.commit:not(:first-child) {
+  margin-top: 1.75rem;
+}
+
+.commitGraph {
+  position: absolute;
+  left: calc(-1 * var(--content-gap));
+  top: 0.75rem;
+}
+
+.commitDot {
+  position: absolute;
+  display: block;
+  width: 0.85rem;
+  height: 0.85rem;
+  transform: translate(-50%, -50%);
+  border-radius: 100%;
+  background-color: var(--branch-color);
+  border: 3px solid var(--bg-color);
+  box-shadow: 0 0 0 1.5px var(--branch-color);
+}
+
+.commitHash {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--branch-text-color);
+  background-color: var(--infoBoxColor);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  margin-right: 0.6rem;
+  white-space: nowrap;
+}
+
+.role {
+  width: 100%;
+}
+
+#projects .workItem {
+  padding: 1.5rem;
+  border-radius: var(--corner-radius);
+  background-color: var(--cardBg);
+  border: 1px solid var(--cardBorder);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#projects .workItem:not(:first-of-type) {
+  margin-top: 1.5rem;
+}
+
+#projects .workItem:hover,
+#projects .workItem:focus-within {
+  transform: translateY(-3px);
+  border-color: var(--accent2);
+  box-shadow: 0 10px 28px -14px #00000040;
 }
 
 .jobHeader,
 .projectHeader  {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 0.2rem;
   margin-bottom: 0.5rem;
 }
 
+.jobHeading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.6rem;
+}
+
 .jobHeader .dates {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .employer,
 .projectTitle {
+  font-family: var(--font-mono);
   font-weight: bold;
   font-size: 1.2em;
 
@@ -32,71 +195,195 @@
 }
 
 
-.role:not(:first-of-type){
-  margin-top: 2rem;
-}
-
 .roleInfo {
   display: flex;
   flex-direction: column;
+  gap: 0.2rem;
   margin-bottom: 0.5rem;
 }
 
+.roleHeading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.6rem;
+}
+
 .roleTitle {
+  font-family: var(--font-mono);
   font-weight: bold;
-  font-size: 1em;
+  font-size: 0.95em;
 }
 
-.roleDescription,
+.commitMeta {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--font-color);
+}
+
+.commitMetaLabel {
+  color: var(--branch-text-color);
+  font-weight: bold;
+  margin-right: 0.35rem;
+}
+
 .projectDescription {
-    margin: 0rem 1rem;  
+  margin: 0 1rem 0 1.5rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--cardBorder);
 }
 
-.roleDescription p,
+.employerSummary p,
 .projectDescription p {
   margin: 0;
 }
 
-.roleDescription p:not(:first-child),
+.employerSummary p:not(:first-child),
 .projectDescription p:not(:first-child) {
   margin-top: 0.2rem;
 }
 
-.dates {
-  font-style: italic;
+/* Roles expand into a git show style panel */
+summary.roleInfo {
+  list-style: none;
+  cursor: pointer;
 }
 
-/* TODO: Add these in */
-.generalSkills {
-  display: flex;
-  justify-content: left;
-  gap: 0.5rem;
+summary.roleInfo::-webkit-details-marker {
+  display: none;
 }
 
-.generalSkills .skill {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  background-color: var(--accent3);
-  padding: 0.5rem 1rem;
+summary.roleInfo .roleHeading::after {
+  content: "›";
+  color: var(--branch-text-color);
+  font-family: var(--font-mono);
+  transition: transform 0.15s ease;
+}
+
+details.role[open] summary.roleInfo .roleHeading::after {
+  transform: rotate(90deg);
+}
+
+summary.roleInfo:hover .commitHash,
+summary.roleInfo:focus-visible .commitHash {
+  outline: 1px solid var(--branch-color);
+}
+
+.gitShow {
+  margin: 0.25rem 0 0.75rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--corner-radius-sm);
+  background-color: #2b2d42;
+  color: #e8e6f0;
+  font-family: 'DejaVu Sans Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.gitShowCommit {
+  color: #ffd43b;
+}
+
+.gitShowRef {
+  color: #6fcf97;
+}
+
+.gitShowMessage {
+  margin-top: 0.75rem;
+  padding-left: 4ch;
+}
+
+.gitShowMessage p {
+  margin: 0;
+}
+
+.gitShowMessage p + p {
+  margin-top: 0.6rem;
+}
+
+/* Hovering a job highlights its branch and dims the others */
+.workEmployer {
+  transition: opacity 0.2s ease;
+}
+
+.timeline:has(.workEmployer:hover) .workEmployer:not(:hover),
+.timeline:has(.workEmployer:focus-within) .workEmployer:not(:focus-within) {
+  opacity: 0.45;
+}
+
+.workEmployer:hover .branchLine,
+.workEmployer:hover .branchFork,
+.workEmployer:hover .branchMerge,
+.workEmployer:focus-within .branchLine,
+.workEmployer:focus-within .branchFork,
+.workEmployer:focus-within .branchMerge {
+  --line-width: 4px;
+}
+
+/* Summary sits in a card edged with the employer's branch colour */
+.employerSummary {
+  margin-top: 0.75rem;
+  padding: 1rem 1.25rem;
+  background-color: var(--cardBg);
+  border: 1px solid var(--cardBorder);
+  border-left: 3px solid var(--branch-color);
+  border-radius: var(--corner-radius-sm);
+}
+
+.employerSummary p:not(:first-child) {
+  margin-top: 0.6rem;
+}
+
+.employerSummary .skills {
+  margin-top: 0.75rem;
+}
+
+.employerSummary .skillChips {
+  margin-bottom: 0;
+}
+
+.employerSummary .skillChip {
+  border-color: var(--branch-color);
+  color: var(--branch-text-color);
+}
+
+#projects .skillChip.branch-0 { border-color: var(--branch-0); color: var(--branch-0-text); }
+#projects .skillChip.branch-1 { border-color: var(--branch-1); color: var(--branch-1-text); }
+#projects .skillChip.branch-2 { border-color: var(--branch-2); color: var(--branch-2-text); }
+#projects .skillChip.branch-3 { border-color: var(--branch-3); color: var(--branch-3-text); }
+#projects .skillChip.branch-4 { border-color: var(--branch-4); color: var(--branch-4-text); }
+#projects .skillChip.branch-5 { border-color: var(--branch-5); color: var(--branch-5-text); }
+
+/* Intro card with a gradient border; the solid bg layer stops the gradient
+   showing through the translucent card colour */
+#about {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
   border-radius: var(--corner-radius);
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--cardBg), var(--cardBg)) padding-box,
+    linear-gradient(var(--bg-color), var(--bg-color)) padding-box,
+    var(--brand-gradient) border-box;
 }
 
+#about p:last-child {
+  margin-bottom: 0;
+}
+
+/* Monospace headings in one colour, matching the homepage terminal */
+#about h1,
+.aboutSection h2 {
+  font-family: var(--font-mono);
+  color: var(--font-color);
+  letter-spacing: 0;
+}
 
 @media only screen and (min-width: 640px) {
-  .jobHeader {
-    flex-direction: row;
-    margin-bottom: 0rem;
-  }
-
   .roleInfo {
-    flex-direction: row;
     margin-bottom: 0.2rem;
   }
-  .roleInfo .dates {
-    margin-left: 1rem;
-  }
-  
 }
 
 @media only screen and (min-width: 768px) {

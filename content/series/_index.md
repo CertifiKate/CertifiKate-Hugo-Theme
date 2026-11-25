@@ -1,6 +1,6 @@
 +++
-[_build]
+[build]
 render = 'never'
-[cascade._build]
+[cascade.build]
 render = 'never'
 +++

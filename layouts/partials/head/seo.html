@@ -2,8 +2,6 @@
 
 {{ template "_internal/schema.html" . }}
 
-<title>{{ .Title }}</title>
-
 {{- with or .Params.seoDescription .Description .Summary site.Params.description | plainify | htmlUnescape | chomp }}
   <meta name="description" content="{{ . }}">
 {{- end }}

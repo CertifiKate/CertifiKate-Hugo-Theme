@@ -1,4 +1,6 @@
-{{- with resources.Get "js/main.js" }}
+{{- /* The theme's script, then the site's own js/site.js if it has one */}}
+{{- range slice "js/main.js" "js/site.js" }}
+{{- with resources.Get . }}
   {{- if eq hugo.Environment "development" }}
     {{- with . }}
       <script src="{{ .RelPermalink }}"></script>
@@ -9,4 +11,5 @@
       <script src="{{ .RelPermalink }}" integrity="{{- .Data.Integrity }}" crossorigin="anonymous"></script>
     {{- end }}
   {{- end }}
+{{- end }}
 {{- end }}

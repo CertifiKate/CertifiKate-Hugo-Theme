@@ -1,15 +1,15 @@
 <div class="container container-spaced">
-    <div id="colorSchemeButton" class="button" onclick="setUserColorScheme()">
-        <i data-feather="eye"></i>
+    <div id="colorSchemeButton" class="button" role="button" tabindex="0" aria-pressed="false" aria-label="Toggle dark mode" onclick="setUserColorScheme()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setUserColorScheme();}">
+        <i data-feather="eye" aria-hidden="true"></i>
     </div>
 
-    <div>        
+    <div>
     </div>
 
     <div class="links">
         {{- range site.Menus.userfooter }}
             <div class="button">
-                <a target="_blank" href="{{ .URL }}">
+                <a target="_blank" rel="noopener noreferrer" href="{{ .URL }}" aria-label="{{ .Name }} (opens in a new tab)">
                 {{ .Pre }}
                 </a>
             </div>
@@ -17,8 +17,8 @@
 
         <div class="button">
             {{ with (.Site.GetPage "section" "blog").OutputFormats.Get "rss" }}
-                {{ printf `<a href=%q target="_blank">` .Permalink | safeHTML }}
-                    <i data-feather="rss"></i>
+                {{ printf `<a href=%q target="_blank" rel="noopener noreferrer" aria-label="RSS feed (opens in a new tab)">` .Permalink | safeHTML }}
+                    <i data-feather="rss" aria-hidden="true"></i>
                 </a>
             {{ end }}
         </div>

@@ -6,10 +6,10 @@
             </div>
         </a>
     </div>
-    <div class="menuLinks">
+    <nav class="menuLinks" aria-label="Primary">
     {{- range site.Menus.header }}
         <a href="{{.URL }}">
-            <div class="icon">
+            <div class="icon" aria-hidden="true">
                 {{ .Pre }}
             </div>
             <div class="name">
@@ -18,14 +18,15 @@
         </a>
     {{- end}}
     {{- range site.Menus.userheader }}
-        <a target="_blank" href="{{.URL }}">
-            <div class="icon">
+        <a target="_blank" rel="noopener noreferrer" href="{{.URL }}">
+            <div class="icon" aria-hidden="true">
                 {{ .Pre }}
             </div>
             <div class="name">
                 {{.Name}}
+                <span class="visuallyHidden">(opens in a new tab)</span>
             </div>
         </a>
     {{- end}}
-    </div>
+    </nav>
 </div>

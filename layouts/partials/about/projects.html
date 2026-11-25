@@ -15,10 +15,9 @@
 
             {{ if .Skills }}
             <div class="skills">
-                <b>Skills: </b>
-                <ul class="separator-list">
-                {{ range .Skills }}
-                    <li>{{ . }}</li>
+                <ul class="skillChips">
+                {{ range $i, $skill := .Skills }}
+                    <li class="skillChip {{ printf "branch-%d" (mod $i 6) }}">{{ $skill }}</li>
                 {{ end }}
                 </ul>
             </div>

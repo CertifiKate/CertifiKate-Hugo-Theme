@@ -1,13 +1,66 @@
 {{ define "main" }}
-<div class="container homeContainer faceSplitContainer">
-  {{ partial "faceContainer" }}
-  <div class="homeIntro">
-    <h1>Hi, I'm {{ .Site.Data.about.base.nameShort }}!</h1>
-    <h2>{{ .Site.Data.about.base.title }}</h2>
-    
-    {{ range .Site.Data.about.base.summaryAlt }}
-      <p>{{ . }}</p>
-    {{ end }}
+<div class="container homeContainer">
+  <div class="terminalCard terminalCardHome">
+    <div class="terminalBar">
+      <span class="terminalDot dotRed"></span>
+      <span class="terminalDot dotAmber"></span>
+      <span class="terminalDot dotGreen"></span>
+      <span class="terminalBarTitle">{{ .Site.Data.about.base.nameShort | lower }}@{{ .Site.Title | lower }}: ~</span>
+    </div>
+    <div class="terminalBody homeFetch">
+      <pre class="terminalCmd"><span class="terminalPrompt">{{ .Site.Data.about.base.nameShort | lower }}@{{ .Site.Title | lower }}</span><span class="terminalSymbol">:~$</span> <span class="terminalTyped">whoami --verbose</span></pre>
+      <div class="fetchLayout">
+        {{ partial "faceContainer" }}
+        <div class="fetchInfo">
+          <div class="fetchHeading">
+            <span class="fetchUser">{{ .Site.Data.about.base.nameShort | lower }}</span><span class="fetchAt">@</span><wbr><span class="fetchHost">{{ .Site.Title }}</span>
+          </div>
+          <div class="fetchRule" aria-hidden="true"></div>
+          <div class="fetchRow"><span class="fetchLabel"><span class="terminalKey">name</span><span class="terminalSymbol">:</span></span><span class="fetchValue">{{ .Site.Data.about.base.name }}</span></div>
+          <div class="fetchRow"><span class="fetchLabel"><span class="terminalKey">role</span><span class="terminalSymbol">:</span></span><span class="fetchValue">{{ .Site.Data.about.base.title }}</span></div>
+          <div class="fetchRow"><span class="fetchLabel"><span class="terminalKey">os</span><span class="terminalSymbol">:</span></span><span class="fetchValue">NixOS</span></div>
+          <div class="fetchRow"><span class="fetchLabel"><span class="terminalKey">status</span><span class="terminalSymbol">:</span></span><span class="fetchValue"><span class="terminalOk">● online</span>, probably</span></div>
+
+          {{ with .Site.Data.about.base.homeStack }}
+          <div class="fetchRow fetchStackRow"><span class="fetchLabel"><span class="terminalKey">stack</span><span class="terminalSymbol">:</span></span>
+            <ul class="skillChips homeStack" aria-label="Technologies I work with">
+              {{ range $i, $skill := . }}
+              <li class="skillChip {{ printf "branch-%d" (mod $i 6) }}">{{ $skill }}</li>
+              {{ end }}
+            </ul>
+          </div>
+          {{ end }}
+
+          <div class="fetchRule" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="fetchSummary">
+          {{ range .Site.Data.about.base.summaryAlt }}
+          <p>{{ . }}</p>
+          {{ end }}
+      </div>
+      <div class="terminalRepl">
+        <div class="terminalOutput" aria-live="polite"></div>
+        <label class="terminalCmd terminalInputLine"><span class="terminalPrompt">{{ .Site.Data.about.base.nameShort | lower }}@{{ .Site.Title | lower }}</span><span class="terminalSymbol">:~$</span> <span class="terminalTypedInput"></span><span class="terminalCursor"></span><input class="terminalInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal - type help for commands"></label>
+      </div>
+    </div>
+    {{- /* Data for the interactive terminal in main.js */}}
+    {{- $posts := slice }}
+    {{- range first 5 (where site.RegularPages "Section" "blog").ByDate.Reverse }}
+      {{- $posts = $posts | append (dict "title" .Title "url" .RelPermalink) }}
+    {{- end }}
+    {{- $projects := slice }}
+    {{- range sort .Site.Data.about.projects "Weight" "desc" }}
+      {{- $projects = $projects | append (dict "title" .Name "url" .Link) }}
+    {{- end }}
+    {{- $links := slice }}
+    {{- range slice "userheader" "userfooter" }}
+      {{- range index site.Menus . }}
+        {{- $links = $links | append (dict "title" .Name "url" .URL) }}
+      {{- end }}
+    {{- end }}
+    {{- $data := dict "user" (.Site.Data.about.base.nameShort | lower) "posts" $posts "projects" $projects "links" $links }}
+    <script type="application/json" id="terminalData">{{ $data | jsonify | safeJS }}</script>
   </div>
 </div>
 {{ end }}

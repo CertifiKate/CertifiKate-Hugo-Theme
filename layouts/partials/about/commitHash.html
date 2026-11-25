@@ -1,0 +1,15 @@
+{{- $employer := .employer }}
+{{- $role := .role }}
+{{- $initial := substr $employer 0 2 | lower }}
+
+{{- $yearshort := "20" }}
+{{- $month := 1 }}
+
+{{- with $role.StartDate }}
+  {{- $t := time.AsTime . }}
+  {{- $yearshort = substr (string $t.Year) 2 }}
+  {{- $month = int $t.Month }}
+{{- end }}
+
+
+{{- printf "%s%02d%s" $initial $month $yearshort }}

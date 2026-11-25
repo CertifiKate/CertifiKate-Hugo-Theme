@@ -1,46 +1,96 @@
 <div id="workHistory">
     <h2>Work History</h2>
-    {{ range sort .Site.Data.about.employers "StartDate"  "desc"}}
-    <div class="workItem">
+    <div class="timeline">
+    <div class="trunkLine" aria-hidden="true"></div>
+    {{ $employerIndex := 0 }}
+    {{ $employers := sort .Site.Data.about.employers "StartDate"  "desc" }}
+    {{ $employerCount := len $employers }}
+    {{ range $employers }}
+    {{ $employer := . }}
+    {{ $isLast := eq (add $employerIndex 1) $employerCount }}
+    {{ $reverseIndex := sub (sub $employerCount 1) $employerIndex }}
+    {{ $branchClass := printf "branch-%d" (mod $reverseIndex 6) }}
+    {{ $roles := sort .Roles "StartDate" "desc" }}
+    <div class="workEmployer {{ $branchClass }}{{ if $isLast }} isLast{{ end }}">
+        <div class="trunkDot" aria-hidden="true"></div>
+        <div class="branchFork" aria-hidden="true"></div>
+        <div class="branchLine" aria-hidden="true"></div>
+        <div class="branchMerge" aria-hidden="true"></div>
+        {{ if $isLast }}
+        <div class="trunkDotEnd" aria-hidden="true"></div>
+        {{ end }}
         <div class="jobHeader">
-            <span class="employer">{{ .Name }}</span>
-            <span class="dates">{{ partial "util/datePeriod.html" (dict "StartDate" .StartDate "EndDate" .EndDate) }}</span>
+            <div class="jobHeading">
+                <span class="branchLabel">{{ printf "⎇ %s" (.Name | urlize) }}</span>
+                <span class="employer">{{ .Name }}</span>
+            </div>
+            <div class="dates commitMeta">
+                <span class="commitMetaLabel">Date:</span>
+                {{ partial "util/datePeriod.html" (dict "StartDate" .StartDate "EndDate" .EndDate) }}
+            </div>
         </div>
-        
+
         <span class="jobDesc">
             {{ .Blurb }}
         </span>
 
-        {{ range sort .Roles "StartDate" "desc" }}
-        <ul>
-            <div class="role">
-                <div class="roleInfo">
-                    <div class="roleTitle">
-                        {{ .Title }}
+        <div class="employerSummary">
+            {{ range .Summary }}
+                <p>{{ . }}</p>
+            {{ end }}
+            {{- if .Skills }}
+            <div class="skills">
+                <ul class="skillChips">
+                {{ range .Skills }}
+                    <li class="skillChip">{{ . }}</li>
+                {{ end }}
+                </ul>
+            </div>
+            {{- end }}
+        </div>
+
+        <div class="commitLog">
+        {{ range $roleIndex, $role := $roles }}
+        <div class="commit">
+            <div class="commitGraph" aria-hidden="true">
+                <span class="commitDot"></span>
+            </div>
+            {{ $hash := partial "about/commitHash.html" (dict "employer" $employer.Name "role" $role) | strings.TrimSpace }}
+            <details class="role">
+                <summary class="roleInfo">
+                    <div class="roleHeading">
+                        <span class="commitHash">{{ $hash }}</span>
+                        <div class="roleTitle">
+                            {{ $role.Title }}
+                        </div>
                     </div>
-                    {{- if .StartDate }}
-                    <div class="dates">
-                        {{ partial "util/datePeriod.html" (dict "StartDate" .StartDate "EndDate" .EndDate) }}                    
+                    {{- if $role.StartDate }}
+                    <div class="dates commitMeta">
+                        <span class="commitMetaLabel">Date:</span>
+                        {{ partial "util/datePeriod.html" (dict "StartDate" $role.StartDate "EndDate" $role.EndDate) }}
                     </div>
                     {{- end}}
-    
-                </div>
-                <div class="roleDescription">
-                    {{ range .Description }}
+                </summary>
+                {{- /* git show style detail panel */}}
+                <div class="gitShow">
+                    <div><span class="gitShowCommit">commit {{ $hash }}</span>{{ if not $role.EndDate }} <span class="gitShowRef">(HEAD -&gt; {{ $employer.Name | urlize }})</span>{{ end }}</div>
+                    <div>Author: {{ site.Data.about.base.name }}</div>
+                    {{- with $role.StartDate }}
+                    <div>Date:&nbsp;&nbsp;&nbsp;{{ partial "util/datePeriod.html" (dict "StartDate" $role.StartDate "EndDate" $role.EndDate) }} ({{ partial "util/duration.html" (dict "StartDate" $role.StartDate "EndDate" $role.EndDate) }})</div>
+                    {{- end }}
+                    <div class="gitShowMessage">
+                        <p>{{ $role.Title }}</p>
+                        {{- range $role.Description }}
                         <p>{{ . }}</p>
-                    {{ end }}
-                    <div class="skills">
-                        <b>Skills: </b>
-                        <ul class="separator-list">
-                        {{ range .Skills }}
-                            <li>{{ . }}</li>
-                        {{ end }}
-                        </ul>
-                    </div>    
+                        {{- end }}
+                    </div>
                 </div>
-            </div>
-        </ul>
+            </details>
+        </div>
         {{ end}}
+        </div>
     </div>
+    {{ $employerIndex = add $employerIndex 1 }}
     {{ end }}
+    </div>
 </div>

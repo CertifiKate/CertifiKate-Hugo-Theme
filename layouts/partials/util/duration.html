@@ -1,0 +1,13 @@
+{{- /* LinkedIn-style duration ("1 yr 4 mos"), counting both start and end months */}}
+{{- $start := time.AsTime .StartDate }}
+{{- $end := now }}
+{{- with .EndDate }}
+  {{- $end = time.AsTime . }}
+{{- end }}
+{{- $months := add (mul (sub $end.Year $start.Year) 12) (sub (int $end.Month) (int $start.Month)) 1 }}
+{{- $years := div $months 12 }}
+{{- $rest := mod $months 12 }}
+{{- $parts := slice }}
+{{- if $years }}{{ $parts = $parts | append (printf "%d %s" $years (cond (eq $years 1) "yr" "yrs")) }}{{ end }}
+{{- if $rest }}{{ $parts = $parts | append (printf "%d %s" $rest (cond (eq $rest 1) "mo" "mos")) }}{{ end }}
+{{- delimit $parts " " -}}
